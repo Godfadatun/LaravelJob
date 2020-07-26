@@ -14,16 +14,21 @@ class UserController extends Controller
     public function register(Request $request)
     {
         //
-        $balance = new Balance;
-        $balance->account_nr = $request->phone;
-        $balance->save();
-        
+
         $input = $request->all();
         $input['password'] = Hash::make($request->password);
 
         $user = User::create($input);
-
         $accessToken = $user->createToken('authToken')->accessToken ;
+        // $user->save();
+
+        $balance = new Balance;
+        $balance->account_nr = $request->phone;
+        $balance->amount = 0;
+        $balance->user_id = $user->id;
+        $balance->save();
+
+
         return response([
             'message'=> 'Valid Credentials',
             'status' => 'Authorized',

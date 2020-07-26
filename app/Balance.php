@@ -10,9 +10,9 @@ class Balance extends Model
     protected $fillable = [
         'amount', 'account_nr', 'user_id',
     ];
-    
-    public function user()
+
+    public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }
