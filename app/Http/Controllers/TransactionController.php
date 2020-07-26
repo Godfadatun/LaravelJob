@@ -59,7 +59,8 @@ class TransactionController extends Controller
         return response()->json([
             'message'=> 'success',
             'status' => 'success',
-            'data'=> $transaction
+            'data'=> $transaction,
+            'balance'=>  $balance
         ]);
 
     }

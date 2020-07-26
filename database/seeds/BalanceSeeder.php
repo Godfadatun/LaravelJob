@@ -14,7 +14,7 @@ class BalanceSeeder extends Seeder
     {
         //
         DB::table('balances')->insert([
-            'amount' => 0,
+            'amount' => 1000,
             'user_id' => 1,
             'account_nr' => '08135613409',
         ]);
