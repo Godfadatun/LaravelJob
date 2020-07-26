@@ -15,7 +15,13 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->double('amount', 8, 2);
+            $table->double('before', 8, 2);
+            $table->double('after', 8, 2);
+            $table->string('account_nr');
+            $table->bigInteger('user_id');
             $table->timestamps();
+
         });
     }
 

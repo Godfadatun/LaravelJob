@@ -15,6 +15,9 @@ class CreateBalancesTable extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->id();
+            $table->double('amount', 8, 2);
+            $table->bigInteger('user_id');
+            $table->string('account_nr');
             $table->timestamps();
         });
     }
