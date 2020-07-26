@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Balance;
+use Auth;
 
 class BalanceController extends Controller
 {
@@ -14,13 +15,7 @@ class BalanceController extends Controller
      */
     public function index()
     {
-        //
-        $balance = Balance::with('user')->get();
-        return response()->json([
-            'message'=> 'success',
-            'status' => 'success',
-            'data'=> $balance
-        ]);
+
     }
 
     /**
@@ -52,7 +47,12 @@ class BalanceController extends Controller
      */
     public function show($id)
     {
-        //
+        $balance = Balance::where('user_id', Auth::user()->id)->first();
+        return response()->json([
+            'message'=> 'success',
+            'status' => 'success',
+            'data'=> $balance
+        ]);
     }
 
     /**

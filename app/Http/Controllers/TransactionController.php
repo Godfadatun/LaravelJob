@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Balance;
 use App\Transaction;
-// use App\User;
+use App\User;
+use Auth;
 
 class TransactionController extends Controller
 {
@@ -43,19 +44,17 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Balance::where('user_id', $request->id)-> decrement('amount',$request->amount);
+        Balance::where('account_nr', $request->account_nr)->  increment('amount',$request->amount);
+        $balance = Balance::where('user_id', $request->id)->first();
+
         $transaction = new Transaction;
-        $balance = Balance::first();
-        $transaction->user_id = auth()->user()->id;
-        $transaction->before = $balance->amount;
-        $transaction->account_nr = $balance->account_nr;
+        $transaction->user_id = $request->id;
+        $transaction->before = ($balance->amount + $request->amount);
+        $transaction->account_nr = $request->account_nr;
         $transaction->amount = $request->amount;
-        $transaction->after = $balance->amount + $request->amount;
-        $balance->amount = $transaction->after;
-
+        $transaction->after = $balance->amount;
         $transaction->save();
-        $balance->save();
-
 
         return response()->json([
             'message'=> 'success',

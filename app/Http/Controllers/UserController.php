@@ -32,7 +32,7 @@ class UserController extends Controller
         return response([
             'message'=> 'Valid Credentials',
             'status' => 'Authorized',
-            'user'=>$user,
+            'user'=>$user->load('balance'),
             'access_token'=> $accessToken
         ]);
     }
@@ -53,7 +53,7 @@ class UserController extends Controller
         return response([
             'message'=> 'Logged In',
             'status' => 'Authorized',
-            'user'=> auth()->user(),
+            'user'=> auth()->user()->load('balance'),
             'access_token'=> $accessToken
             ]);
     }
