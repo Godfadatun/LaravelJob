@@ -15,7 +15,13 @@ class BalanceController extends Controller
      */
     public function index()
     {
-
+        // dd(Auth::id());
+        $balance = Balance::where('user_id', Auth::id())->first();
+        return response()->json([
+            'message'=> 'success',
+            'status' => 'success',
+            'data'=> $balance
+        ]);
     }
 
     /**
